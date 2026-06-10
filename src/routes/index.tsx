@@ -47,7 +47,7 @@ function Home() {
               Fragrance
             </h1>
             <p className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed">
-              Discover premium attars and perfumes crafted for lasting impressions —
+              Discover premium attars and perfumes crafted for lasting impressions ✦
               hand-blended in Indore, inspired by Arabian luxury traditions.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
