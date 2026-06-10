@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/products";
-import { formatINR } from "@/lib/products";
+import { PriceDisplay } from "@/components/site/PriceDisplay";
 import { useCart } from "@/lib/cart";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
@@ -32,6 +32,11 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
               Bestseller
             </span>
           )}
+          {product.salePrice && (
+            <span className="absolute top-4 right-4 text-[10px] tracking-[0.3em] uppercase text-white bg-destructive px-3 py-1 rounded-full">
+              Sale
+            </span>
+          )}
           <button
             onClick={(e) => { e.preventDefault(); add(product.id); }}
             className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-gradient-gold text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition shadow-gold"
@@ -44,7 +49,9 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           <div className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">{product.category}</div>
           <h3 className="font-display text-2xl">{product.name}</h3>
           <p className="text-xs text-muted-foreground mt-1 italic">{product.tagline}</p>
-          <div className="mt-3 font-display text-xl text-gradient-gold">{formatINR(product.price)}</div>
+          <div className="mt-3 font-display text-xl text-gradient-gold">
+            <PriceDisplay price={product.price} salePrice={product.salePrice} />
+          </div>
         </div>
       </Link>
     </motion.div>

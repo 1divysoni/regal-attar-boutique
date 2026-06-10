@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Lock, Check } from "lucide-react";
 import { SiteLayout } from "@/components/site/Layout";
 import { useCart } from "@/lib/cart";
-import { formatINR } from "@/lib/products";
+import { formatINR, getEffectivePrice } from "@/lib/products";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — AK Perfumes" }] }),
@@ -50,7 +50,43 @@ function Checkout() {
       <div className="max-w-6xl mx-auto px-6 py-16">
         <h1 className="font-display text-5xl md:text-6xl mb-12">Secure <span className="italic text-gradient-gold">Checkout</span></h1>
         <form
-          onSubmit={(e) => { e.preventDefault(); clear(); setDone(true); window.scrollTo(0, 0); }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const data = new FormData(e.currentTarget);
+            const name = data.get("name") as string;
+            const email = data.get("email") as string;
+            const phone = data.get("phone") as string;
+            const address = data.get("address") as string;
+            const city = data.get("city") as string;
+            const state = data.get("state") as string;
+            const pin = data.get("pin") as string;
+            const country = data.get("country") as string;
+
+            const lines: string[] = [];
+            lines.push("Hello! I'd like to place an order:");
+            lines.push("");
+            items.forEach(({ product, qty }, i) => {
+              const price = getEffectivePrice(product);
+              lines.push(`${i + 1}. ${product.name} x${qty} — ${formatINR(price * qty)}`);
+            });
+            lines.push("");
+            lines.push("*Order Summary*");
+            lines.push(`Subtotal: ${formatINR(subtotal)}`);
+            lines.push("Shipping: Free");
+            lines.push(`Total: ${formatINR(subtotal)}`);
+            lines.push("");
+            lines.push("*Customer Details*");
+            lines.push(`Name: ${name}`);
+            lines.push(`Email: ${email}`);
+            lines.push(`Phone: ${phone}`);
+            lines.push(`Address: ${address}, ${city}, ${state} - ${pin}, ${country}`);
+
+            const whatsappUrl = `https://wa.me/918889355235?text=${encodeURIComponent(lines.join("\n"))}`;
+            window.open(whatsappUrl, "_blank");
+            clear();
+            setDone(true);
+            window.scrollTo(0, 0);
+          }}
           className="grid lg:grid-cols-3 gap-10"
         >
           <div className="lg:col-span-2 space-y-8">
@@ -93,7 +129,7 @@ function Checkout() {
                     <div className="truncate">{product.name}</div>
                     <div className="text-xs text-muted-foreground">Qty {qty}</div>
                   </div>
-                  <div className="text-gold">{formatINR(product.price * qty)}</div>
+                  <div className="text-gold">{formatINR(getEffectivePrice(product) * qty)}</div>
                 </div>
               ))}
             </div>

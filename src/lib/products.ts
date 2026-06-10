@@ -2,6 +2,7 @@ import p1 from "@/assets/product-1.jpg";
 import p2 from "@/assets/product-2.jpg";
 import p3 from "@/assets/product-3.jpg";
 import p4 from "@/assets/product-4.jpg";
+import p5 from "@/assets/product-5.png";
 
 export type Product = {
   id: string;
@@ -10,11 +11,14 @@ export type Product = {
   tagline: string;
   notes: { top: string[]; heart: string[]; base: string[] };
   price: number;
+  salePrice?: number;
   image: string;
   category: "Attar" | "Perfume" | "Oud";
   description: string;
   bestseller?: boolean;
 };
+
+export const getEffectivePrice = (p: Product) => p.salePrice ?? p.price;
 
 export const products: Product[] = [
   {
@@ -24,6 +28,7 @@ export const products: Product[] = [
     tagline: "The signature. Royal, smoky, unforgettable.",
     notes: { top: ["Saffron", "Bergamot"], heart: ["Bulgarian Rose", "Iris"], base: ["Aged Oud", "Amber", "Musk"] },
     price: 4999,
+    salePrice: 3999,
     image: p1,
     category: "Oud",
     description: "A bold composition of aged Cambodian oud, Bulgarian rose, and warm amber. Purple Oud is the soul of AK Perfumes — opulent, mysterious, and built to linger long after you leave the room.",
@@ -36,6 +41,7 @@ export const products: Product[] = [
     tagline: "Alcohol-free attar of velvet nights.",
     notes: { top: ["Cardamom", "Pink Pepper"], heart: ["Jasmine", "Tuberose"], base: ["Sandalwood", "Vanilla"] },
     price: 3499,
+    salePrice: 2799,
     image: p2,
     category: "Attar",
     description: "Hand-blended in Indore from precious sandalwood and white florals. A pure, alcohol-free attar that warms with your skin.",
@@ -63,6 +69,18 @@ export const products: Product[] = [
     category: "Oud",
     description: "Our most precious composition. Aged Hindi oud layered with leather and Damask rose — a fragrance that announces its presence.",
     bestseller: true,
+  },
+  {
+    id: "5",
+    slug: "amber-nights",
+    name: "Amber Nights",
+    tagline: "Warm amber kissed with saffron and rose.",
+    notes: { top: ["Saffron", "Bergamot"], heart: ["Damask Rose", "Honey"], base: ["Amber", "Vanilla", "Musk"] },
+    price: 4299,
+    image: p5,
+    category: "Attar",
+    description: "A warm, enveloping attar that unfolds like a desert evening — saffron and bergamot opening into honeyed rose, settling into a rich amber-vanilla base.",
+    bestseller: false,
   },
 ];
 

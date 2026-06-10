@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, Trash2, ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/Layout";
 import { useCart } from "@/lib/cart";
-import { formatINR } from "@/lib/products";
+import { formatINR, getEffectivePrice } from "@/lib/products";
+import { PriceDisplay } from "@/components/site/PriceDisplay";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({ meta: [{ title: "Cart — AK Perfumes" }, { name: "description", content: "Your selected fragrances." }] }),
@@ -33,7 +34,7 @@ function CartPage() {
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] uppercase tracking-[0.3em] text-gold">{product.category}</div>
                     <div className="font-display text-xl">{product.name}</div>
-                    <div className="text-sm text-gold mt-1">{formatINR(product.price)}</div>
+                    <div className="text-sm text-gold mt-1"><PriceDisplay price={product.price} salePrice={product.salePrice} /></div>
                   </div>
                   <div className="flex items-center glass rounded-full">
                     <button onClick={() => setQty(product.id, qty - 1)} className="p-2"><Minus className="w-3 h-3" /></button>

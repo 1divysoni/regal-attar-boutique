@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { products, type Product } from "./products";
+import { products, type Product, getEffectivePrice } from "./products";
 
 export type CartItem = { product: Product; qty: number };
 type CartCtx = {
@@ -53,7 +53,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setItems((cur) => (qty <= 0 ? cur.filter((i) => i.product.id !== id) : cur.map((i) => (i.product.id === id ? { ...i, qty } : i)))),
     clear: () => setItems([]),
     count: items.reduce((s, i) => s + i.qty, 0),
-    subtotal: items.reduce((s, i) => s + i.qty * i.product.price, 0),
+    subtotal: items.reduce((s, i) => s + i.qty * getEffectivePrice(i.product), 0),
   }), [items]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

@@ -4,7 +4,8 @@ import { ArrowLeft, Plus, Minus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { ProductCard } from "@/components/site/ProductCard";
-import { getProduct, products, formatINR } from "@/lib/products";
+import { getProduct, products, formatINR, getEffectivePrice } from "@/lib/products";
+import { PriceDisplay } from "@/components/site/PriceDisplay";
 import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/product/$slug")({
@@ -58,6 +59,11 @@ function ProductPage() {
             <div className="absolute -inset-10 bg-accent/30 blur-3xl rounded-full" />
             <div className="relative rounded-2xl overflow-hidden shadow-luxe aspect-[4/5] bg-card">
               <img src={product.image} alt={product.name} width={1024} height={1280} className="w-full h-full object-cover" />
+              {product.salePrice && (
+                <span className="absolute top-4 right-4 text-[10px] tracking-[0.3em] uppercase text-white bg-destructive px-4 py-2 rounded-full">
+                  Sale
+                </span>
+              )}
             </div>
           </motion.div>
 
@@ -69,7 +75,9 @@ function ProductPage() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-gold mb-3">{product.category}</div>
             <h1 className="font-display text-5xl md:text-6xl mb-3">{product.name}</h1>
             <p className="italic text-lg text-muted-foreground mb-6">{product.tagline}</p>
-            <div className="font-display text-3xl text-gradient-gold mb-8">{formatINR(product.price)}</div>
+            <div className="font-display text-3xl text-gradient-gold mb-8">
+              <PriceDisplay price={product.price} salePrice={product.salePrice} />
+            </div>
             <div className="gold-divider w-24 mb-8" />
             <p className="text-base text-foreground/85 leading-relaxed mb-10">{product.description}</p>
 
