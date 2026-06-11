@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { ProductCard } from "@/components/site/ProductCard";
 import { products } from "@/lib/products";
@@ -18,9 +18,25 @@ export const Route = createFileRoute("/shop")({
   component: Shop,
 });
 
+function interleave(attars: typeof products, perfumes: typeof products) {
+  const result: typeof products = [];
+  let a = 0, p = 0;
+  while (a < attars.length || p < perfumes.length) {
+    for (let i = 0; i < 2 && a < attars.length; i++) result.push(attars[a++]);
+    if (p < perfumes.length) result.push(perfumes[p++]);
+  }
+  return result;
+}
+
 function Shop() {
   const [cat, setCat] = useState<(typeof categories)[number]>("All");
-  const filtered = cat === "All" ? products : products.filter((p) => p.category === cat);
+  const filtered = useMemo(() => {
+    if (cat !== "All") return products.filter((p) => p.category === cat);
+    return interleave(
+      products.filter((p) => p.category === "Attar"),
+      products.filter((p) => p.category === "Perfume"),
+    );
+  }, [cat]);
 
   return (
     <SiteLayout>
