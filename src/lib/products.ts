@@ -34,7 +34,7 @@ export type Product = {
   price: number;
   salePrice?: number;
   image: string;
-  category: "Attar" | "Perfume" | "Oud";
+  category: "Attar" | "Perfume";
   description: string;
   bestseller?: boolean;
 };
@@ -64,7 +64,7 @@ export const products: Product[] = [
     price: 2199,
     salePrice: 439,
     image: p2,
-    category: "Oud",
+    category: "Attar",
     description: "Indulge in a rich, deeply captivating premium oud fragrance oil roll-on tailored for both men and women. This alcohol-free, grade-1 concentrated formula harmonizes precious woody depth with exotic floral nuances for an ultra-premium, long-lasting aroma.",
     bestseller: false,
   },

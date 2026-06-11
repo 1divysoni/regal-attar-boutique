@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { ProductCard } from "@/components/site/ProductCard";
 import { products } from "@/lib/products";
 
-const categories = ["All", "Oud", "Attar", "Perfume"] as const;
+const categories = ["All", "Attar", "Perfume"] as const;
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
