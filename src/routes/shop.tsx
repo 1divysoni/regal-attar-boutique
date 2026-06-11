@@ -18,24 +18,20 @@ export const Route = createFileRoute("/shop")({
   component: Shop,
 });
 
-function interleave(attars: typeof products, perfumes: typeof products) {
-  const result: typeof products = [];
-  let a = 0, p = 0;
-  while (a < attars.length || p < perfumes.length) {
-    for (let i = 0; i < 2 && a < attars.length; i++) result.push(attars[a++]);
-    if (p < perfumes.length) result.push(perfumes[p++]);
+function shuffle(arr: typeof products) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return result;
+  return a;
 }
 
 function Shop() {
   const [cat, setCat] = useState<(typeof categories)[number]>("All");
   const filtered = useMemo(() => {
     if (cat !== "All") return products.filter((p) => p.category === cat);
-    return interleave(
-      products.filter((p) => p.category === "Attar"),
-      products.filter((p) => p.category === "Perfume"),
-    );
+    return shuffle(products);
   }, [cat]);
 
   return (
