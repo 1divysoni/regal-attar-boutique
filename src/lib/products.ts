@@ -24,6 +24,7 @@ import p23 from "@/assets/product-23.jpg";
 import p24 from "@/assets/product-24.jpg";
 import p25 from "@/assets/product-25.jpg";
 import p26 from "@/assets/product-26.jpg";
+import p27 from "@/assets/product-27.jpg";
 
 export type Product = {
   id: string;
@@ -378,6 +379,19 @@ export const products: Product[] = [
     image: p26,
     category: "Perfume",
     description: "A refreshing aquatic fragrance that captures the pure essence of an ocean breeze. The blend combines crisp marine elements with uplifting botanical accents, settling smoothly into a sophisticated and long-lasting woody foundation.",
+    bestseller: false,
+  },
+  {
+    id: "27",
+    slug: "opium_black",
+    name: "OPIUM BLACK",
+    tagline: "Every Fragrance, a Memory Shared",
+    notes: { top: ["Pink Pepper", "Orange Blossom", "Pear"], heart: ["Coffee", "Jasmine"], base: ["Vanilla", "Patchouli", "Cedarwood"] },
+    price: 2199,
+    salePrice: 439,
+    image: p27,
+    category: "Attar",
+    description: "Experience a highly concentrated, long-lasting premium fragrance oil roll-on designed for both men and women. This alcohol-free formulation delivers a rich, smooth, and premium blend that stays on your clothes and skin for hours without being overpowering.",
     bestseller: false,
   },
 ];
