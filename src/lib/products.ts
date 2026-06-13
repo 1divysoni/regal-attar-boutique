@@ -262,7 +262,7 @@ export const products: Product[] = [
     tagline: "Smelling good is the first step to feeling good",
     notes: { top: ["Citrusy Fruits"], heart: ["Jasmine"], base: ["Patchouli and Musk"] },
     price: 899,
-    salePrice: 549,
+    salePrice: 279,
     image: p18,
     category: "Perfume",
     description: "A soothing and refreshing fragrance designed to envelope you in an airy, fresh embrace. Infused with rich notes of citrus fruits and clean powdery florals, it provides an uplifting, feel-good sensory experience perfect for everyday wear.",
